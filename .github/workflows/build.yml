@@ -7,12 +7,12 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
       
       - name: Install dependencies
         run: |
@@ -22,10 +22,10 @@ jobs:
       
       - name: Build EXE
         run: |
-          pyinstaller --onefile --windowed --name whisper_pro --distpath ./dist whisper_pro.py
+          pyinstaller --onefile --windowed --name whisper_pro whisper_pro.py
       
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: whisper-pro-app
           path: dist/whisper_pro.exe
