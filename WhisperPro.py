@@ -87,21 +87,40 @@ class FlowBar:
         self.root = tk.Tk()
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
-        self.root.geometry("220x40+1000+20")
+
+        screen_w = self.root.winfo_screenwidth()
+        bar_w = 360
+        bar_h = 52
+        x = (screen_w - bar_w) // 2
+        y = 18
+        self.root.geometry(f"{bar_w}x{bar_h}+{x}+{y}")
+        self.root.configure(bg="#1a1a2e")
 
         self.label = tk.Label(
             self.root,
-            text="🎤 WhisperPro Ready",
-            bg="black",
-            fg="white",
-            font=("Arial", 10)
+            text="🎤  WhisperPro  —  Hold F5 to speak",
+            bg="#1a1a2e",
+            fg="#00cfff",
+            font=("Segoe UI", 11, "bold"),
+            padx=12,
+            pady=8
         )
         self.label.pack(fill="both", expand=True)
 
         threading.Thread(target=self.root.mainloop, daemon=True).start()
 
     def update(self, text):
-        self.label.config(text=text)
+        if "Listening" in text:
+            color = "#ff4444"
+        elif "Processing" in text:
+            color = "#ffaa00"
+        elif "Done" in text:
+            color = "#00ff88"
+        elif "Error" in text or "No audio" in text:
+            color = "#ff6600"
+        else:
+            color = "#00cfff"
+        self.label.config(text=text, fg=color)
 
 
 flow = FlowBar()
