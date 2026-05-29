@@ -17,11 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install sounddevice numpy keyboard pyperclip noisereduce faster-whisper pyinstaller Pillow
-
-      - name: Generate Icon
-        run: |
-          python generate_icon.py
+          pip install sounddevice numpy keyboard pyperclip noisereduce faster-whisper pyinstaller
 
       - name: Build EXE
         run: |
