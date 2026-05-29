@@ -52,7 +52,11 @@ except Exception as e:
 # ======================
 # DATABASE (7-day memory)
 # ======================
-conn = sqlite3.connect("history.db", check_same_thread=False)
+import os
+APP_DIR = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "WhisperPro")
+os.makedirs(APP_DIR, exist_ok=True)
+DB_PATH = os.path.join(APP_DIR, "history.db")
+conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 c = conn.cursor()
 
 c.execute("""
